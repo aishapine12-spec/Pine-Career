@@ -1317,3 +1317,116 @@
     initGlobes();
   });
 })();
+
+
+/* ==========================================================================
+   WORLD MAP — COUNTRY HOVER TOOLTIP
+   ========================================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const mapWrapper =
+    document.querySelector(".world-map-wrapper");
+
+  const tooltip =
+    document.querySelector(".wm-country-tooltip");
+
+  const dots =
+    document.querySelectorAll(".wm-dot");
+
+
+  /* ------------------------------------------------------------------------
+     Safety check
+     ------------------------------------------------------------------------ */
+
+  if (!mapWrapper || !tooltip || !dots.length) {
+    return;
+  }
+
+
+  /* ------------------------------------------------------------------------
+     Mouse Enter
+     ------------------------------------------------------------------------ */
+
+  dots.forEach(function (dot) {
+
+    dot.addEventListener("mouseenter", function () {
+
+      const country =
+        dot.getAttribute("data-country");
+
+      if (!country) {
+        return;
+      }
+
+
+      /* Set country name */
+
+      tooltip.textContent = country;
+
+
+      /* Get positions */
+
+      const dotRect =
+        dot.getBoundingClientRect();
+
+      const wrapperRect =
+        mapWrapper.getBoundingClientRect();
+
+
+      /* Calculate position relative to map */
+
+      const x =
+        dotRect.left -
+        wrapperRect.left +
+        (dotRect.width / 2);
+
+      const y =
+        dotRect.top -
+        wrapperRect.top;
+
+
+      /* Position tooltip */
+
+      tooltip.style.left = `${x}px`;
+
+      tooltip.style.top = `${y}px`;
+
+
+      /* Show tooltip */
+
+      tooltip.classList.add("visible");
+
+
+      /* Make hovered point bigger */
+
+      dot.style.r =
+        (parseFloat(dot.getAttribute("r")) || 4) + 2;
+    });
+
+
+    /* ----------------------------------------------------------------------
+       Mouse Leave
+       ---------------------------------------------------------------------- */
+
+    dot.addEventListener("mouseleave", function () {
+
+      tooltip.classList.remove("visible");
+
+      dot.style.r = "";
+    });
+
+  });
+
+
+  /* ------------------------------------------------------------------------
+     Hide tooltip if mouse leaves map
+     ------------------------------------------------------------------------ */
+
+  mapWrapper.addEventListener("mouseleave", function () {
+
+    tooltip.classList.remove("visible");
+
+  });
+
+});

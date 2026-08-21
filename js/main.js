@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PINE CAREERS — Site Script
+   PINE CAREERS Site Script
    Injects header/footer, wires up navigation, scroll reveals, stat counters,
    testimonial carousel and the contact form.
    ========================================================================== */
@@ -172,7 +172,7 @@
 
         '<h2>One connected network, mapped across 28 countries.</h2>' +
 
-        '<p>From alumni chapters to leadership roundtables, Pine Careers keeps a single, living picture of where your community actually is — and keeps it moving.</p>' +
+        '<p>From alumni chapters to leadership roundtables, Pine Careers keeps a single, living picture of where your community actually is and keeps it moving.</p>' +
 
         '<div class="gi-stats">' +
 
@@ -204,8 +204,9 @@
         '<div class="globe-wrap">' +
           '<canvas class="globe-canvas" data-globe="lg"></canvas>' +
         '</div>' +
-        '<span class="gi-map-caption">Live network &middot; illustrative</span>' +
-      '</div>' +
+        '<span class="gi-map-caption"></span>' +
+      '</div>'
+       +
 
     '</div>' +
   '</div>';
@@ -214,9 +215,6 @@
       giHTML +
       '<div class="footer-main">' +
         '<div class="footer-brand">' +
-          '<a href="index.html" class="wordmark">' +
-            '<img src="' + LOGO_URL + '" alt="Pine Careers" style="height:30px;width:auto;display:block;" onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),{innerHTML:\'Pine <em>Careers</em>\'}))">' +
-          '</a>' +
           '<p>The first integrated recruitment, alumni and industry partner for international higher education in India. A Pine Group higher education business.</p>' +
           '<div class="footer-social">' +
             '<a href="mailto:info@pinecareers.com" aria-label="Email Pine Careers"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>' +
@@ -228,7 +226,7 @@
         '<div class="footer-col"><h4>Services</h4><ul>' + servicesHTML + '</ul></div>' +
         '<div class="footer-col contact"><h4>Get In Touch</h4><ul>' +
           '<li><span class="label">Email</span><a href="mailto:info@pinecareers.com">info@pinecareers.com</a></li>' +
-          '<li><span class="label">Location</span><span>Pine Careers, Noida, UP, India</span></li>' +
+          '<li><span class="label">Location</span><span>B-314, iThum Tower, Plot No. A-40, Sector-62, Noida, Gautam Buddha Nagar-201301, Uttar Pradesh</span></li>' +
           '<li><span class="label">Response Time</span><span>Within two business days</span></li>' +
         '</ul></div>' +
       '</div>' +
@@ -369,7 +367,7 @@
         data.message
       ];
 
-      var subject = encodeURIComponent("Partnership Briefing Request — " + data.institution);
+      var subject = encodeURIComponent("Partnership Briefing Request " + data.institution);
       var body = encodeURIComponent(bodyLines.join("\n"));
       window.location.href = "mailto:info@pinecareers.com?subject=" + subject + "&body=" + body;
 
@@ -532,202 +530,360 @@
      Draws GLOBE_DATA (a dotted world map + hub cities + connecting routes)
      onto a sphere that slowly rotates, with authentic limb-darkening,
      hub pulses, city labels and great-circle flight arcs that travel over
-     the surface and disappear behind the horizon. Pure Canvas 2D — no
+     the surface and disappear behind the horizon. Pure Canvas 2D no
      external map tiles or WebGL dependency. */
-  function createGlobe(canvas, opts){
+ /* ==========================================================================
+
+   ROTATING GLOBE
+
+   ========================================================================== */
+
+function createGlobe(canvas, opts){
+
   opts = opts || {};
 
   var ctx = canvas.getContext("2d");
+
   var dots = GLOBE_DATA.dots;
   var hubs = GLOBE_DATA.hubs;
   var routes = GLOBE_DATA.routes;
 
   var showLabels = opts.labels !== false;
+
   var reduceMotion =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var w, h, dpr, R, cx, cy, raf, rotation = 0.6;
 
+
   /*
-   * Pine Careers Color Palette
+   * ============================================================
+   * PINE CAREERS COLOR PALETTE
+   * ============================================================
+   *
+   * IMPORTANT:
+   *
+   * Existing BLUE colors are kept for the globe/map.
+   *
+   * GOLD colors are used ONLY for:
+   * - Country points
+   * - Country pulse rings
+   * - Route/dash lines
+   * - Country/city labels
+   *
    */
+
   var COLORS = {
+
+    /* Existing globe colors — unchanged */
+
     navy900: "#2870B4",
     navy800: "#1F5F96",
     navy700: "#3F82BE",
+
     pine800: "#174A78",
     pine700: "#5A9BD0",
-    pine600: "#82B6DD"
+    pine600: "#82B6DD",
+
+
+    /* Gold accent */
+
+    gold: "#E4C883",
+    goldBright: "#F1D99A",
+    goldSoft: "#D8B96E"
+
   };
 
+
+  /*
+   * ============================================================
+   * PROJECT FLAT MAP COORDINATES TO GLOBE
+   * ============================================================
+   */
+
   function project(xFlat, yFlat){
+
     var lonDeg =
       (xFlat / 1000) * 360 -
       180 -
       rotation * (180 / Math.PI);
 
-    var latDeg = 80 - (yFlat / 460) * 160;
+    var latDeg =
+      80 -
+      (yFlat / 460) * 160;
 
-    var lonRad = lonDeg * Math.PI / 180;
-    var latRad = latDeg * Math.PI / 180;
+    var lonRad =
+      lonDeg * Math.PI / 180;
 
-    var x3 = Math.cos(latRad) * Math.sin(lonRad);
-    var y3 = Math.sin(latRad);
-    var z3 = Math.cos(latRad) * Math.cos(lonRad);
+    var latRad =
+      latDeg * Math.PI / 180;
+
+    var x3 =
+      Math.cos(latRad) *
+      Math.sin(lonRad);
+
+    var y3 =
+      Math.sin(latRad);
+
+    var z3 =
+      Math.cos(latRad) *
+      Math.cos(lonRad);
 
     return {
-      x: cx + R * x3,
-      y: cy - R * y3,
-      z: z3,
-      visible: z3 > 0.02
+
+      x:
+        cx + R * x3,
+
+      y:
+        cy - R * y3,
+
+      z:
+        z3,
+
+      visible:
+        z3 > 0.02
+
     };
+
   }
 
-  function size(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    R = Math.min(w, h) / 2 - 2;
-
-    cx = w / 2;
-    cy = h / 2;
-  }
 
   /*
-   * ==========================================
+   * ============================================================
+   * SIZE
+   * ============================================================
+   */
+
+  function size(){
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    w =
+      canvas.clientWidth;
+
+    h =
+      canvas.clientHeight;
+
+
+    canvas.width =
+      w * dpr;
+
+    canvas.height =
+      h * dpr;
+
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+
+    R =
+      Math.min(w, h) / 2 - 2;
+
+
+    cx =
+      w / 2;
+
+    cy =
+      h / 2;
+
+  }
+
+
+  /*
+   * ============================================================
    * GLOBE BASE
-   * ==========================================
+   * ============================================================
    */
 
   function drawSphereShading(){
 
-    var base = ctx.createRadialGradient(
-      cx - R * 0.38,
-      cy - R * 0.42,
-      R * 0.08,
-      cx,
-      cy,
-      R * 1.05
-    );
+    var base =
+      ctx.createRadialGradient(
+
+        cx - R * 0.38,
+        cy - R * 0.42,
+        R * 0.08,
+
+        cx,
+        cy,
+        R * 1.05
+
+      );
+
 
     /*
      * Light area
      */
+
     base.addColorStop(
       0,
       "rgba(130,182,221,0.88)"
     );
 
+
     /*
      * Pine 700
      */
+
     base.addColorStop(
       0.30,
       "rgba(90,155,208,0.82)"
     );
 
+
     /*
      * Navy 700
      */
+
     base.addColorStop(
       0.55,
       "rgba(63,130,190,0.82)"
     );
 
+
     /*
      * Navy 800
      */
+
     base.addColorStop(
       0.78,
       "rgba(31,95,150,0.88)"
     );
 
+
     /*
      * Dark edge
      */
+
     base.addColorStop(
       1,
       "rgba(23,74,120,0.96)"
     );
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
 
-    ctx.fillStyle = base;
+    ctx.beginPath();
+
+    ctx.arc(
+      cx,
+      cy,
+      R,
+      0,
+      Math.PI * 2
+    );
+
+
+    ctx.fillStyle =
+      base;
+
     ctx.fill();
 
 
     /*
      * Soft outer rim
      */
+
     ctx.beginPath();
-    ctx.arc(cx, cy, R - 0.5, 0, Math.PI * 2);
+
+    ctx.arc(
+      cx,
+      cy,
+      R - 0.5,
+      0,
+      Math.PI * 2
+    );
+
 
     ctx.strokeStyle =
       "rgba(130,182,221,0.65)";
 
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth =
+      1.2;
+
     ctx.stroke();
+
   }
 
 
   /*
-   * ==========================================
+   * ============================================================
    * GLOBE SHADOW
-   * ==========================================
+   * ============================================================
    */
 
   function drawLimbShadow(){
 
-    var g = ctx.createRadialGradient(
-      cx,
-      cy,
-      R * 0.48,
-      cx,
-      cy,
-      R
-    );
+    var g =
+      ctx.createRadialGradient(
+
+        cx,
+        cy,
+        R * 0.48,
+
+        cx,
+        cy,
+        R
+
+      );
+
 
     g.addColorStop(
       0,
       "rgba(23,74,120,0)"
     );
 
+
     g.addColorStop(
       0.55,
       "rgba(23,74,120,0.06)"
     );
+
 
     g.addColorStop(
       0.82,
       "rgba(23,74,120,0.20)"
     );
 
+
     g.addColorStop(
       1,
       "rgba(23,74,120,0.58)"
     );
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
 
-    ctx.fillStyle = g;
+    ctx.beginPath();
+
+    ctx.arc(
+      cx,
+      cy,
+      R,
+      0,
+      Math.PI * 2
+    );
+
+
+    ctx.fillStyle =
+      g;
+
     ctx.fill();
+
   }
 
 
   /*
-   * ==========================================
+   * ============================================================
    * GREAT CIRCLE ROUTES
-   * ==========================================
+   * ============================================================
    */
 
   function greatCircleArc(p1, p2, t){
@@ -735,115 +891,206 @@
     function toVec(xFlat, yFlat){
 
       var lonDeg =
-        (xFlat / 1000) * 360 - 180;
+        (xFlat / 1000) * 360 -
+        180;
+
 
       var latDeg =
-        80 - (yFlat / 460) * 160;
+        80 -
+        (yFlat / 460) * 160;
+
 
       var lonRad =
         lonDeg * Math.PI / 180;
 
+
       var latRad =
         latDeg * Math.PI / 180;
 
+
       return [
-        Math.cos(latRad) * Math.sin(lonRad),
+
+        Math.cos(latRad) *
+        Math.sin(lonRad),
+
         Math.sin(latRad),
-        Math.cos(latRad) * Math.cos(lonRad)
+
+        Math.cos(latRad) *
+        Math.cos(lonRad)
+
       ];
+
     }
 
-    var v1 = toVec(p1[0], p1[1]);
-    var v2 = toVec(p2[0], p2[1]);
+
+    var v1 =
+      toVec(
+        p1[0],
+        p1[1]
+      );
+
+
+    var v2 =
+      toVec(
+        p2[0],
+        p2[1]
+      );
+
 
     var dot =
       v1[0] * v2[0] +
       v1[1] * v2[1] +
       v1[2] * v2[2];
 
-    dot = Math.max(-1, Math.min(1, dot));
 
-    var theta = Math.acos(dot) || 0.0001;
+    dot =
+      Math.max(
+        -1,
+        Math.min(1, dot)
+      );
+
+
+    var theta =
+      Math.acos(dot) ||
+      0.0001;
+
 
     var sinTheta =
-      Math.sin(theta) || 0.0001;
+      Math.sin(theta) ||
+      0.0001;
+
 
     var a =
-      Math.sin((1 - t) * theta) /
+      Math.sin(
+        (1 - t) * theta
+      ) /
       sinTheta;
 
+
     var b =
-      Math.sin(t * theta) /
+      Math.sin(
+        t * theta
+      ) /
       sinTheta;
+
 
     var vx =
       a * v1[0] +
       b * v2[0];
 
+
     var vy =
       a * v1[1] +
       b * v2[1];
+
 
     var vz =
       a * v1[2] +
       b * v2[2];
 
+
     /*
      * Slight lift above globe
      */
-    var lift =
-      1 + 0.16 * Math.sin(t * Math.PI);
 
-    var rot = rotation;
+    var lift =
+      1 +
+      0.16 *
+      Math.sin(t * Math.PI);
+
+
+    var rot =
+      rotation;
+
 
     var rx =
       vx * Math.cos(rot) -
       vz * Math.sin(rot);
 
+
     var rz =
       vx * Math.sin(rot) +
       vz * Math.cos(rot);
 
+
     return {
-      x: cx + R * rx * lift,
-      y: cy - R * vy * lift,
-      z: rz,
-      visible: rz > 0.02
+
+      x:
+        cx +
+        R *
+        rx *
+        lift,
+
+      y:
+        cy -
+        R *
+        vy *
+        lift,
+
+      z:
+        rz,
+
+      visible:
+        rz > 0.02
+
     };
+
   }
 
 
   /*
-   * ==========================================
+   * ============================================================
    * MAIN ANIMATION
-   * ==========================================
+   * ============================================================
    */
 
   function step(ts){
 
-    ctx.clearRect(0, 0, w, h);
+    ctx.clearRect(
+      0,
+      0,
+      w,
+      h
+    );
+
 
     /*
-     * Globe
+     * ========================================================
+     * GLOBE
+     * ========================================================
      */
+
     drawSphereShading();
 
 
     /*
-     * Rotation
+     * ========================================================
+     * ROTATION
+     * ========================================================
      */
+
     if (!reduceMotion){
-      rotation += 0.0016;
+
+      rotation +=
+        0.0016;
+
     }
 
 
     /*
-     * ========================================
+     * ========================================================
      * CONTINENT DOTS
-     * ========================================
+     *
+     * IMPORTANT:
+     * KEEP THESE BLUE
+     * ========================================================
      */
 
-    for (var i = 0; i < dots.length; i++){
+    for (
+      var i = 0;
+      i < dots.length;
+      i++
+    ){
 
       var p =
         project(
@@ -851,24 +1098,31 @@
           dots[i][1]
         );
 
-      if (!p.visible) continue;
+
+      if (!p.visible)
+        continue;
 
 
       /*
        * Dot transparency
        */
+
       var alpha =
-        0.28 + p.z * 0.62;
+        0.28 +
+        p.z * 0.62;
 
 
       /*
        * Dot size
        */
+
       var r =
-        1.05 + p.z * 0.95;
+        1.05 +
+        p.z * 0.95;
 
 
       ctx.beginPath();
+
 
       ctx.arc(
         p.x,
@@ -880,19 +1134,13 @@
 
 
       /*
-       * Pine Careers blue dots
-       *
-       * Bright:
-       * #82B6DD
-       *
-       * Mid:
-       * #5A9BD0
-       *
-       * Dark:
-       * #3F82BE
+       * ======================================================
+       * ORIGINAL BLUE MAP DOT COLORS
+       * ======================================================
        */
 
       var dotColor;
+
 
       if (p.z > 0.65){
 
@@ -901,34 +1149,47 @@
           alpha.toFixed(2) +
           ")";
 
-      } else if (p.z > 0.35){
+      }
+
+      else if (p.z > 0.35){
 
         dotColor =
           "rgba(90,155,208," +
           alpha.toFixed(2) +
           ")";
 
-      } else {
+      }
+
+      else {
 
         dotColor =
           "rgba(63,130,190," +
           alpha.toFixed(2) +
           ")";
+
       }
 
-      ctx.fillStyle = dotColor;
+
+      ctx.fillStyle =
+        dotColor;
+
 
       ctx.fill();
+
     }
 
 
     /*
-     * ========================================
-     * FLIGHT ROUTES
-     * ========================================
+     * ========================================================
+     * FLIGHT / CONNECTION ROUTES
+     *
+     * GOLD
+     * ========================================================
      */
 
-    var segs = 40;
+    var segs =
+      40;
+
 
     for (
       var r2 = 0;
@@ -937,10 +1198,20 @@
     ){
 
       var hA =
-        hubs[routes[r2][0]];
+        hubs[
+          routes[r2][0]
+        ];
+
 
       var hB =
-        hubs[routes[r2][1]];
+        hubs[
+          routes[r2][1]
+        ];
+
+
+      /*
+       * Animated flow
+       */
 
       var flowT =
         (
@@ -951,7 +1222,9 @@
 
       ctx.beginPath();
 
-      var started = false;
+
+      var started =
+        false;
 
 
       for (
@@ -960,7 +1233,9 @@
         s++
       ){
 
-        var tt = s / segs;
+        var tt =
+          s / segs;
+
 
         var pt =
           greatCircleArc(
@@ -979,51 +1254,75 @@
               pt.y
             );
 
-            started = true;
 
-          } else {
+            started =
+              true;
+
+          }
+
+          else {
 
             ctx.lineTo(
               pt.x,
               pt.y
             );
+
           }
 
-        } else {
-
-          started = false;
         }
+
+        else {
+
+          started =
+            false;
+
+        }
+
       }
 
 
       /*
-       * Route color
-       * Pine 600
+       * ======================================================
+       * GOLD DASH LINE
+       * ======================================================
        */
 
       ctx.strokeStyle =
-        "rgba(130,182,221,0.72)";
+        "rgba(228,200,131,0.82)";
 
-      ctx.lineWidth = 1.15;
+
+      ctx.lineWidth =
+        1.15;
+
 
       ctx.setLineDash([
         5,
         6
       ]);
 
+
+      /*
+       * Animated dash movement
+       */
+
       ctx.lineDashOffset =
         -flowT * 60;
 
+
       ctx.stroke();
 
+
       ctx.setLineDash([]);
+
     }
 
 
     /*
-     * ========================================
-     * HUB CITIES
-     * ========================================
+     * ========================================================
+     * COUNTRY / HUB POINTS
+     *
+     * GOLD
+     * ========================================================
      */
 
     for (
@@ -1035,6 +1334,7 @@
       var hub =
         hubs[hI];
 
+
       var hp =
         project(
           hub[0],
@@ -1042,11 +1342,14 @@
         );
 
 
-      if (!hp.visible) continue;
+      if (!hp.visible)
+        continue;
 
 
       /*
-       * Pulse animation
+       * ======================================================
+       * PULSE ANIMATION
+       * ======================================================
        */
 
       var pulse =
@@ -1055,21 +1358,28 @@
           hI * 0.5
         ) % 2;
 
+
       var pulseR =
-        3 + pulse * 9;
+        3 +
+        pulse * 9;
+
 
       var pulseA =
         Math.max(
           0,
-          0.60 - pulse * 0.30
+          0.60 -
+          pulse * 0.30
         );
 
 
       /*
-       * Pulse ring
+       * ======================================================
+       * GOLD PULSE RING
+       * ======================================================
        */
 
       ctx.beginPath();
+
 
       ctx.arc(
         hp.x,
@@ -1079,21 +1389,28 @@
         Math.PI * 2
       );
 
+
       ctx.strokeStyle =
-        "rgba(130,182,221," +
+        "rgba(228,200,131," +
         pulseA.toFixed(2) +
         ")";
 
-      ctx.lineWidth = 1.1;
+
+      ctx.lineWidth =
+        1.1;
+
 
       ctx.stroke();
 
 
       /*
-       * Main hub dot
+       * ======================================================
+       * MAIN GOLD COUNTRY POINT
+       * ======================================================
        */
 
       ctx.beginPath();
+
 
       ctx.arc(
         hp.x,
@@ -1105,32 +1422,38 @@
 
 
       /*
-       * Hub color
-       * Navy 900
+       * Gold point
        */
 
       ctx.fillStyle =
-        COLORS.navy900;
+        COLORS.gold;
 
 
       /*
-       * Blue glow
+       * Gold glow
        */
 
       ctx.shadowColor =
-        "rgba(130,182,221,0.95)";
+        "rgba(228,200,131,0.95)";
 
-      ctx.shadowBlur = 8;
+
+      ctx.shadowBlur =
+        8;
+
 
       ctx.fill();
 
-      ctx.shadowBlur = 0;
+
+      ctx.shadowBlur =
+        0;
 
 
       /*
-       * ======================================
-       * CITY LABEL
-       * ======================================
+       * ======================================================
+       * COUNTRY / CITY NAME
+       *
+       * GOLD
+       * ======================================================
        */
 
       if (
@@ -1143,9 +1466,16 @@
           "500 10px Inter, sans-serif";
 
 
+        /*
+         * GOLD LABEL
+         */
+
         ctx.fillStyle =
-          "rgba(130,182,221," +
-          (0.45 + hp.z * 0.45).toFixed(2) +
+          "rgba(228,200,131," +
+          (
+            0.55 +
+            hp.z * 0.40
+          ).toFixed(2) +
           ")";
 
 
@@ -1154,30 +1484,39 @@
           hp.x + 7,
           hp.y - 6
         );
+
       }
+
     }
 
 
     /*
-     * Final globe shadow
+     * ========================================================
+     * FINAL GLOBE SHADOW
+     * ========================================================
      */
 
     drawLimbShadow();
 
 
     /*
-     * Continue animation
+     * ========================================================
+     * CONTINUE ANIMATION
+     * ========================================================
      */
 
     raf =
-      requestAnimationFrame(step);
+      requestAnimationFrame(
+        step
+      );
+
   }
 
 
   /*
-   * ==========================================
+   * ============================================================
    * START
-   * ==========================================
+   * ============================================================
    */
 
   function start(){
@@ -1186,46 +1525,59 @@
 
     step(0);
 
+
     if (reduceMotion){
 
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(
+        raf
+      );
+
     }
+
   }
 
 
   /*
-   * ==========================================
+   * ============================================================
    * RESIZE
-   * ==========================================
+   * ============================================================
    */
 
   var resizeTimer;
+
 
   window.addEventListener(
     "resize",
     function(){
 
-      clearTimeout(resizeTimer);
+      clearTimeout(
+        resizeTimer
+      );
+
 
       resizeTimer =
         setTimeout(
           function(){
 
-            cancelAnimationFrame(raf);
+            cancelAnimationFrame(
+              raf
+            );
+
 
             start();
 
           },
           200
         );
+
     }
   );
 
 
   /*
-   * ==========================================
+   * ============================================================
    * TAB VISIBILITY
-   * ==========================================
+   * ============================================================
    */
 
   document.addEventListener(
@@ -1234,22 +1586,33 @@
 
       if (document.hidden){
 
-        cancelAnimationFrame(raf);
+        cancelAnimationFrame(
+          raf
+        );
 
-      } else if (!reduceMotion){
+      }
+
+      else if (!reduceMotion){
 
         raf =
-          requestAnimationFrame(step);
+          requestAnimationFrame(
+            step
+          );
+
       }
+
     }
   );
 
 
   /*
-   * Start globe
+   * ============================================================
+   * START GLOBE
+   * ============================================================
    */
 
   start();
+
 }
 
 
@@ -1320,7 +1683,7 @@
 
 
 /* ==========================================================================
-   WORLD MAP — COUNTRY HOVER TOOLTIP
+   WORLD MAP COUNTRY HOVER TOOLTIP
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {

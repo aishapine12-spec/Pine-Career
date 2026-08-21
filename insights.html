@@ -10,6 +10,76 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---- Insights: Blogs / White Papers tabs ---- */
+    .insights-tabs{ --pc-pine:#173A2E; --pc-pine-deep:#0F2A20; --pc-gold:#B4863A; --pc-gold-soft:#E7D6B0; --pc-moss:#6E7F63; --pc-cream:#FAF7EF; --pc-line:#E4DFCF; --pc-ink:#20241F; }
+
+    .insights-tabs .tabs-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:28px; }
+
+    .insights-tabs .needle-rule{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
+    .insights-tabs .needle-rule svg{ display:block; }
+
+    .tabs-nav{ list-style:none; display:flex; gap:8px; margin:0; padding:0; border-bottom:1px solid var(--pc-line); }
+    .tabs-nav li{ margin:0; }
+    .tab-btn{ font-family:'Inter',sans-serif; font-size:15px; font-weight:600; letter-spacing:.01em; color:#8A8474; background:none; border:none; cursor:pointer; padding:12px 4px 14px; margin-right:26px; position:relative; transition:color .2s ease; }
+    .tab-btn:last-child{ margin-right:0; }
+    .tab-btn:hover{ color:var(--pc-pine); }
+    .tab-btn::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--pc-gold); transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
+    .tab-btn[aria-selected="true"]{ color:var(--pc-pine-deep); }
+    .tab-btn[aria-selected="true"]::after{ transform:scaleX(1); }
+    .tab-btn .count{ font-family:'Inter',sans-serif; font-weight:500; font-size:12px; color:#A8A290; margin-left:6px; }
+    .tab-btn:focus-visible{ outline:2px solid var(--pc-gold); outline-offset:4px; border-radius:2px; }
+
+    .tab-panel{ display:none; }
+    .tab-panel.is-active{ display:block; }
+    .tab-panel .grid.cols-2{ margin-top:30px; }
+
+    .fade-item{ opacity:0; transform:translateY(10px); animation:pcFadeIn .5s ease forwards; }
+    @keyframes pcFadeIn{ to{ opacity:1; transform:translateY(0); } }
+
+    .whitepaper-card .insight-media{ position:relative; }
+    .whitepaper-card .doc-badge{ position:absolute; top:12px; left:12px; display:inline-flex; align-items:center; gap:6px; background:var(--pc-pine-deep); color:var(--pc-gold-soft); font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; border-radius:20px; }
+    .whitepaper-card .doc-badge svg{ width:12px; height:12px; }
+    .whitepaper-card .insight-foot .text-link{ display:inline-flex; align-items:center; gap:6px; }
+    .whitepaper-card .status-pill{ font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:var(--pc-moss); }
+
+    .add-tile{ border:1.5px dashed var(--pc-line); border-radius:14px; min-height:280px; display:flex; align-items:center; justify-content:center; background:transparent; cursor:pointer; transition:border-color .2s ease, background .2s ease; padding:24px; text-align:center; }
+    .add-tile:hover, .add-tile:focus-visible{ border-color:var(--pc-gold); background:rgba(180,134,58,.05); outline:none; }
+    .add-tile .add-tile-inner{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .add-tile .plus-ring{ width:44px; height:44px; border-radius:50%; border:1.5px solid var(--pc-gold); display:flex; align-items:center; justify-content:center; color:var(--pc-gold); transition:transform .2s ease; }
+    .add-tile:hover .plus-ring{ transform:rotate(90deg); }
+    .add-tile .add-tile-label{ font-family:'Fraunces',serif; font-size:17px; color:var(--pc-pine-deep); }
+    .add-tile .add-tile-sub{ font-family:'Inter',sans-serif; font-size:13px; color:#9A947F; max-width:220px; }
+
+    /* Modal */
+    .pc-modal-backdrop{ position:fixed; inset:0; background:rgba(15,42,32,.45); display:none; align-items:center; justify-content:center; padding:20px; z-index:1000; }
+    .pc-modal-backdrop.is-open{ display:flex; }
+    .pc-modal{ background:var(--pc-cream); width:100%; max-width:560px; max-height:90vh; overflow-y:auto; border-radius:16px; padding:32px; box-shadow:0 30px 70px rgba(15,42,32,.35); }
+    .pc-modal h3{ font-family:'Fraunces',serif; font-size:24px; color:var(--pc-pine-deep); margin:0 0 4px; }
+    .pc-modal .pc-modal-sub{ font-family:'Inter',sans-serif; font-size:13px; color:#8A8474; margin:0 0 22px; }
+    .pc-field{ margin-bottom:16px; }
+    .pc-field label{ display:block; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; color:var(--pc-pine); margin-bottom:6px; }
+    .pc-field input, .pc-field textarea{ width:100%; font-family:'Inter',sans-serif; font-size:14px; color:var(--pc-ink); border:1px solid var(--pc-line); border-radius:8px; padding:10px 12px; background:#fff; box-sizing:border-box; }
+    .pc-field input:focus, .pc-field textarea:focus{ outline:none; border-color:var(--pc-gold); box-shadow:0 0 0 3px rgba(180,134,58,.15); }
+    .pc-field textarea{ resize:vertical; min-height:70px; }
+    .pc-row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .pc-modal-actions{ display:flex; justify-content:flex-end; gap:10px; margin-top:24px; }
+    .pc-btn{ font-family:'Inter',sans-serif; font-size:14px; font-weight:600; border-radius:8px; padding:11px 20px; cursor:pointer; border:1px solid transparent; }
+    .pc-btn-ghost{ background:none; border-color:var(--pc-line); color:#726C5B; }
+    .pc-btn-ghost:hover{ background:#F1EDE0; }
+    .pc-btn-primary{ background:var(--pc-pine-deep); color:#fff; }
+    .pc-btn-primary:hover{ background:var(--pc-pine); }
+    .pc-modal-close{ position:absolute; }
+
+    @media (max-width:640px){
+      .pc-row2{ grid-template-columns:1fr; }
+      .tab-btn{ margin-right:16px; font-size:14px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .fade-item{ animation:none; opacity:1; transform:none; }
+      .add-tile:hover .plus-ring{ transform:none; }
+    }
+  </style>
 </head>
 <body data-page="insights">
 
@@ -24,55 +94,175 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section insights-tabs">
   <div class="container">
-    <div class="grid cols-2">
-      <article class="insight-card reveal">
-        <!-- <img
-  src="images/logo.png"
-  alt="Indian rupee"
-  loading="lazy"
-  onerror="this.style.display='none'"
->-->
 
-        <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/indian-rupee-1170x568-1-1.jpg" alt="Indian rupee" loading="lazy" onerror="this.style.display='none'"></div>
-        <div class="insight-body">
-          <div class="insight-tags"><span class="tag">International Education</span><span class="tag">India</span></div>
-          <h3><a href="https://pinecareers.com/the-future-of-indian-student-mobility-amid-rupee-internationalization/" target="_blank" rel="noopener">The Future of Indian Student Mobility amid Rupee Internationalization</a></h3>
-          <p>As India prepares to establish itself as the world's third-largest economy, the vision to globalize the Indian Rupee could influence Indian student mobility to overseas destinations.</p>
-          <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/the-future-of-indian-student-mobility-amid-rupee-internationalization/" target="_blank" rel="noopener">Read full article</a></div>
+    <div class="tabs-head">
+      <div>
+        <div class="needle-rule" aria-hidden="true">
+          <svg width="34" height="12" viewBox="0 0 34 12" fill="none"><path d="M1 11L11 1M11 1L7 1M11 1L11 5" stroke="#B4863A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11L24 1M24 1L20 1M24 1L24 5" stroke="#B4863A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 11L33 5" stroke="#B4863A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-      </article>
-      <article class="insight-card reveal reveal-d1">
-        <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/UK-immigration-1170x568-1-1.jpeg" alt="UK immigration policy" loading="lazy" onerror="this.style.display='none'"></div>
-        <div class="insight-body">
-          <div class="insight-tags"><span class="tag">Careers</span><span class="tag">UK</span></div>
-          <h3><a href="https://pinecareers.com/navigating-the-new-landscape-uks-visa-policy-shift-and-its-impact-on-global-talent-from-india/" target="_blank" rel="noopener">Navigating the New Landscape: UK's Visa Policy Shift and Its Impact on Global Talent from India</a></h3>
-          <p>The UK's skilled worker visa salary threshold adjustment from &pound;26,200 to &pound;38,700 signifies a significant shift, affecting those targeting middle-income roles. The policy aims to reduce inward migration by 300,000.</p>
-          <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/navigating-the-new-landscape-uks-visa-policy-shift-and-its-impact-on-global-talent-from-india/" target="_blank" rel="noopener">Read full article</a></div>
-        </div>
-      </article>
-      <article class="insight-card reveal">
-        <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/UK-immigration-1170x568-1.jpeg" alt="UK visa rules" loading="lazy" onerror="this.style.display='none'"></div>
-        <div class="insight-body">
-          <div class="insight-tags"><span class="tag">Visa Guidance</span><span class="tag">UK</span></div>
-          <h3><a href="https://pinecareers.com/the-uks-new-visa-rules-a-hurdle-for-indian-students-but-not-the-end-of-the-road/" target="_blank" rel="noopener">The UK's New Visa Rules: A Hurdle for Indian Students, But Not the End of the Road</a></h3>
-          <p>While the changes introduce higher maintenance fund requirements &pound;13,347 for living in London and &pound;10,224 outside the capital these hurdles can be overcome with the right planning and guidance.</p>
-          <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/the-uks-new-visa-rules-a-hurdle-for-indian-students-but-not-the-end-of-the-road/" target="_blank" rel="noopener">Read full article</a></div>
-        </div>
-      </article>
-      <article class="insight-card reveal reveal-d1">
-        <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/student-1170x568-1.jpeg" alt="Student preparing for an interview" loading="lazy" onerror="this.style.display='none'"></div>
-        <div class="insight-body">
-          <div class="insight-tags"><span class="tag">Student Guidance</span><span class="tag">Visa Guidance</span></div>
-          <h3><a href="https://pinecareers.com/how-to-prepare-for-pre-cas-interview/" target="_blank" rel="noopener">How to Prepare for the Pre-CAS Interview</a></h3>
-          <p>Students often feel anxious during visa and pre-CAS interviews conducted by UK universities. This guide outlines common interview questions and tips for crafting effective responses.</p>
-          <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/how-to-prepare-for-pre-cas-interview/" target="_blank" rel="noopener">Read full article</a></div>
-        </div>
-      </article>
+        <ul class="tabs-nav" role="tablist" aria-label="Insights content type">
+          <li role="presentation"><button class="tab-btn" id="tab-blogs" role="tab" aria-selected="true" aria-controls="panel-blogs" type="button">Blogs <span class="count" id="blogs-count"></span></button></li>
+          <li role="presentation"><button class="tab-btn" id="tab-whitepapers" role="tab" aria-selected="false" aria-controls="panel-whitepapers" tabindex="-1" type="button">White Papers <span class="count" id="whitepapers-count"></span></button></li>
+        </ul>
+      </div>
     </div>
+
+    <!-- BLOGS -->
+    <div class="tab-panel is-active" id="panel-blogs" role="tabpanel" aria-labelledby="tab-blogs" tabindex="0">
+      <div class="grid cols-2" id="blogs-grid">
+        <article class="insight-card reveal">
+          <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/indian-rupee-1170x568-1-1.jpg" alt="Indian rupee" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">International Education</span><span class="tag">India</span></div>
+            <h3><a href="https://pinecareers.com/the-future-of-indian-student-mobility-amid-rupee-internationalization/" target="_blank" rel="noopener">The Future of Indian Student Mobility amid Rupee Internationalization</a></h3>
+            <p>As India prepares to establish itself as the world's third-largest economy, the vision to globalize the Indian Rupee could influence Indian student mobility to overseas destinations.</p>
+            <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/the-future-of-indian-student-mobility-amid-rupee-internationalization/" target="_blank" rel="noopener">Read full article</a></div>
+          </div>
+        </article>
+        <article class="insight-card reveal reveal-d1">
+          <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/UK-immigration-1170x568-1-1.jpeg" alt="UK immigration policy" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">Careers</span><span class="tag">UK</span></div>
+            <h3><a href="https://pinecareers.com/navigating-the-new-landscape-uks-visa-policy-shift-and-its-impact-on-global-talent-from-india/" target="_blank" rel="noopener">Navigating the New Landscape: UK's Visa Policy Shift and Its Impact on Global Talent from India</a></h3>
+            <p>The UK's skilled worker visa salary threshold adjustment from &pound;26,200 to &pound;38,700 signifies a significant shift, affecting those targeting middle-income roles. The policy aims to reduce inward migration by 300,000.</p>
+            <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/navigating-the-new-landscape-uks-visa-policy-shift-and-its-impact-on-global-talent-from-india/" target="_blank" rel="noopener">Read full article</a></div>
+          </div>
+        </article>
+        <article class="insight-card reveal">
+          <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/UK-immigration-1170x568-1.jpeg" alt="UK visa rules" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">Visa Guidance</span><span class="tag">UK</span></div>
+            <h3><a href="https://pinecareers.com/the-uks-new-visa-rules-a-hurdle-for-indian-students-but-not-the-end-of-the-road/" target="_blank" rel="noopener">The UK's New Visa Rules: A Hurdle for Indian Students, But Not the End of the Road</a></h3>
+            <p>While the changes introduce higher maintenance fund requirements &pound;13,347 for living in London and &pound;10,224 outside the capital these hurdles can be overcome with the right planning and guidance.</p>
+            <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/the-uks-new-visa-rules-a-hurdle-for-indian-students-but-not-the-end-of-the-road/" target="_blank" rel="noopener">Read full article</a></div>
+          </div>
+        </article>
+        <article class="insight-card reveal reveal-d1">
+          <div class="insight-media"><img src="https://pinecareers.com/wp-content/uploads/2025/11/student-1170x568-1.jpeg" alt="Student preparing for an interview" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">Student Guidance</span><span class="tag">Visa Guidance</span></div>
+            <h3><a href="https://pinecareers.com/how-to-prepare-for-pre-cas-interview/" target="_blank" rel="noopener">How to Prepare for the Pre-CAS Interview</a></h3>
+            <p>Students often feel anxious during visa and pre-CAS interviews conducted by UK universities. This guide outlines common interview questions and tips for crafting effective responses.</p>
+            <div class="insight-foot"><span>Nov 17, 2025</span><a class="text-link" href="https://pinecareers.com/how-to-prepare-for-pre-cas-interview/" target="_blank" rel="noopener">Read full article</a></div>
+          </div>
+        </article>
+
+        <button type="button" class="add-tile" id="add-blog-btn" aria-haspopup="dialog">
+          <span class="add-tile-inner">
+            <span class="plus-ring" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span class="add-tile-label">Add a blog</span>
+            <span class="add-tile-sub">Publish a new article to this feed</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- WHITE PAPERS -->
+    <div class="tab-panel" id="panel-whitepapers" role="tabpanel" aria-labelledby="tab-whitepapers" tabindex="0" hidden>
+      <div class="grid cols-2" id="whitepapers-grid">
+        <article class="insight-card whitepaper-card">
+          <div class="insight-media">
+            <span class="doc-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>PDF Report</span>
+            <img src="https://pinecareers.com/wp-content/uploads/2025/11/indian-rupee-1170x568-1-1.jpg" alt="Global Alumni Ecosystem Report cover" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">Whitepaper</span><span class="tag">28 Markets</span></div>
+            <h3><a href="#">The Global Alumni Ecosystem Report</a></h3>
+            <p>A 28-market benchmark of how institutions convert alumni networks into enrolment pipelines, employer partnerships, and lifetime engagement.</p>
+            <div class="insight-foot"><span class="status-pill">Coming September 2026</span></div>
+          </div>
+        </article>
+
+        <article class="insight-card whitepaper-card">
+          <div class="insight-media">
+            <span class="doc-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>PDF Report</span>
+            <img src="https://pinecareers.com/wp-content/uploads/2025/11/UK-immigration-1170x568-1-1.jpeg" alt="State of Indian student mobility report cover" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">Research</span><span class="tag">India</span></div>
+            <h3><a href="#">State of Indian Student Mobility, 2026</a></h3>
+            <p>Enrolment, funding, and destination-choice data drawn from institutional partners across the UK, Europe, and North America.</p>
+            <div class="insight-foot"><span>Aug 2026</span><a class="text-link" href="#">Download PDF</a></div>
+          </div>
+        </article>
+
+        <article class="insight-card whitepaper-card">
+          <div class="insight-media">
+            <span class="doc-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>PDF Report</span>
+            <img src="https://pinecareers.com/wp-content/uploads/2025/11/UK-immigration-1170x568-1.jpeg" alt="UK visa policy briefing cover" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <div class="insight-body">
+            <div class="insight-tags"><span class="tag">Visa Guidance</span><span class="tag">UK</span></div>
+            <h3><a href="#">UK Visa Policy: A Briefing for Admissions Leaders</a></h3>
+            <p>What the salary-threshold and maintenance-fund changes mean for offer strategy, conversion, and student communications.</p>
+            <div class="insight-foot"><span>Jul 2026</span><a class="text-link" href="#">Download PDF</a></div>
+          </div>
+        </article>
+
+        <button type="button" class="add-tile" id="add-whitepaper-btn" aria-haspopup="dialog">
+          <span class="add-tile-inner">
+            <span class="plus-ring" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span class="add-tile-label">Add a white paper</span>
+            <span class="add-tile-sub">List a new downloadable report</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
   </div>
 </section>
+
+<!-- Add Blog / White Paper modal -->
+<div class="pc-modal-backdrop" id="pc-modal-backdrop">
+  <div class="pc-modal" role="dialog" aria-modal="true" aria-labelledby="pc-modal-title">
+    <h3 id="pc-modal-title">Add a blog</h3>
+    <p class="pc-modal-sub" id="pc-modal-sub">This publishes a new card to the top of the list.</p>
+    <form id="pc-modal-form">
+      <div class="pc-field">
+        <label for="pc-f-title">Title</label>
+        <input type="text" id="pc-f-title" required placeholder="e.g. Canada's New Post-Study Work Rules">
+      </div>
+      <div class="pc-row2">
+        <div class="pc-field">
+          <label for="pc-f-tag1">Tag 1</label>
+          <input type="text" id="pc-f-tag1" placeholder="e.g. Visa Guidance">
+        </div>
+        <div class="pc-field">
+          <label for="pc-f-tag2">Tag 2 (optional)</label>
+          <input type="text" id="pc-f-tag2" placeholder="e.g. Canada">
+        </div>
+      </div>
+      <div class="pc-field">
+        <label for="pc-f-excerpt">Excerpt</label>
+        <textarea id="pc-f-excerpt" required placeholder="One or two sentences summarizing the piece."></textarea>
+      </div>
+      <div class="pc-row2">
+        <div class="pc-field">
+          <label for="pc-f-date">Date</label>
+          <input type="text" id="pc-f-date" placeholder="e.g. Aug 21, 2026">
+        </div>
+        <div class="pc-field">
+          <label for="pc-f-image">Cover image URL</label>
+          <input type="url" id="pc-f-image" placeholder="https://...">
+        </div>
+      </div>
+      <div class="pc-field" id="pc-f-link-wrap">
+        <label for="pc-f-link" id="pc-f-link-label">Article link</label>
+        <input type="url" id="pc-f-link" placeholder="https://pinecareers.com/...">
+      </div>
+      <div class="pc-modal-actions">
+        <button type="button" class="pc-btn pc-btn-ghost" id="pc-modal-cancel">Cancel</button>
+        <button type="submit" class="pc-btn pc-btn-primary" id="pc-modal-submit">Publish blog</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- CTA -->
 <section class="section tight">
@@ -80,7 +270,7 @@
     <div class="cta-band reveal">
       <h2>Want market intelligence like this for your leadership team?</h2>
       <p class="lead">Our partnership briefings include a tailored read on what India's policy and market shifts mean for your institution specifically.</p>
-      <a href="contact.html" class="btn btn-gold">Request a Partnership Briefing
+      <a href="contact.html" class="btn btn-gold"> Book a Demo
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
@@ -88,5 +278,185 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 <script src="js/main.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Tabs ---------- */
+  var tabs = [
+    { btn: document.getElementById('tab-blogs'), panel: document.getElementById('panel-blogs') },
+    { btn: document.getElementById('tab-whitepapers'), panel: document.getElementById('panel-whitepapers') }
+  ];
+
+  function activateTab(index){
+    tabs.forEach(function(t, i){
+      var active = i === index;
+      t.btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.btn.tabIndex = active ? 0 : -1;
+      t.panel.classList.toggle('is-active', active);
+      if (active) { t.panel.removeAttribute('hidden'); } else { t.panel.setAttribute('hidden', ''); }
+    });
+  }
+
+  tabs.forEach(function(t, i){
+    t.btn.addEventListener('click', function(){ activateTab(i); });
+    t.btn.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        e.preventDefault();
+        var next = e.key === 'ArrowRight' ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+        tabs[next].btn.focus();
+        activateTab(next);
+      }
+    });
+  });
+
+  /* ---------- Storage-backed extra items ---------- */
+  var STORE_KEYS = { blog: 'pc_extra_blogs', whitepaper: 'pc_extra_whitepapers' };
+
+  function readStore(kind){
+    try { return JSON.parse(localStorage.getItem(STORE_KEYS[kind]) || '[]'); }
+    catch(e){ return []; }
+  }
+  function writeStore(kind, items){
+    try { localStorage.setItem(STORE_KEYS[kind], JSON.stringify(items)); } catch(e){}
+  }
+
+  function escapeHtml(str){
+    return String(str || '').replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  function buildCard(kind, data){
+    var article = document.createElement('article');
+    article.className = kind === 'whitepaper' ? 'insight-card whitepaper-card fade-item' : 'insight-card fade-item';
+
+    var tagsHtml = '';
+    if (data.tag1) tagsHtml += '<span class="tag">' + escapeHtml(data.tag1) + '</span>';
+    if (data.tag2) tagsHtml += '<span class="tag">' + escapeHtml(data.tag2) + '</span>';
+
+    var mediaHtml = data.image
+      ? '<img src="' + escapeHtml(data.image) + '" alt="' + escapeHtml(data.title) + '" loading="lazy" onerror="this.style.display=\'none\'">'
+      : '';
+
+    var badgeHtml = kind === 'whitepaper'
+      ? '<span class="doc-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>PDF Report</span>'
+      : '';
+
+    var linkLabel = kind === 'whitepaper' ? 'Download PDF' : 'Read full article';
+    var footHtml = '<span>' + escapeHtml(data.date || '') + '</span>' +
+      (data.link ? '<a class="text-link" href="' + escapeHtml(data.link) + '" target="_blank" rel="noopener">' + linkLabel + '</a>' : '');
+
+    var titleHtml = data.link
+      ? '<a href="' + escapeHtml(data.link) + '" target="_blank" rel="noopener">' + escapeHtml(data.title) + '</a>'
+      : escapeHtml(data.title);
+
+    article.innerHTML =
+      '<div class="insight-media">' + badgeHtml + mediaHtml + '</div>' +
+      '<div class="insight-body">' +
+        '<div class="insight-tags">' + tagsHtml + '</div>' +
+        '<h3>' + titleHtml + '</h3>' +
+        '<p>' + escapeHtml(data.excerpt) + '</p>' +
+        '<div class="insight-foot">' + footHtml + '</div>' +
+      '</div>';
+
+    return article;
+  }
+
+  function updateCount(kind){
+    var grid = document.getElementById(kind === 'whitepaper' ? 'whitepapers-grid' : 'blogs-grid');
+    var n = grid.querySelectorAll('.insight-card').length;
+    var el = document.getElementById(kind === 'whitepaper' ? 'whitepapers-count' : 'blogs-count');
+    if (el) el.textContent = n;
+  }
+
+  function renderStored(kind){
+    var grid = document.getElementById(kind === 'whitepaper' ? 'whitepapers-grid' : 'blogs-grid');
+    var addTile = document.getElementById(kind === 'whitepaper' ? 'add-whitepaper-btn' : 'add-blog-btn');
+    readStore(kind).forEach(function(data){
+      grid.insertBefore(buildCard(kind, data), addTile);
+    });
+    updateCount(kind);
+  }
+
+  renderStored('blog');
+  renderStored('whitepaper');
+
+  /* ---------- Modal ---------- */
+  var backdrop = document.getElementById('pc-modal-backdrop');
+  var form = document.getElementById('pc-modal-form');
+  var modalTitle = document.getElementById('pc-modal-title');
+  var modalSub = document.getElementById('pc-modal-sub');
+  var submitBtn = document.getElementById('pc-modal-submit');
+  var linkLabelEl = document.getElementById('pc-f-link-label');
+  var currentKind = 'blog';
+  var lastFocused = null;
+
+  function openModal(kind){
+    currentKind = kind;
+    form.reset();
+    if (kind === 'whitepaper'){
+      modalTitle.textContent = 'Add a white paper';
+      modalSub.textContent = 'This publishes a new report card to the White Papers tab.';
+      submitBtn.textContent = 'Publish white paper';
+      linkLabelEl.textContent = 'PDF link';
+      document.getElementById('pc-f-link').placeholder = 'https://pinecareers.com/reports/...';
+    } else {
+      modalTitle.textContent = 'Add a blog';
+      modalSub.textContent = 'This publishes a new card to the top of the Blogs tab.';
+      submitBtn.textContent = 'Publish blog';
+      linkLabelEl.textContent = 'Article link';
+      document.getElementById('pc-f-link').placeholder = 'https://pinecareers.com/...';
+    }
+    lastFocused = document.activeElement;
+    backdrop.classList.add('is-open');
+    document.getElementById('pc-f-title').focus();
+    document.addEventListener('keydown', onKeydown);
+  }
+
+  function closeModal(){
+    backdrop.classList.remove('is-open');
+    document.removeEventListener('keydown', onKeydown);
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function onKeydown(e){
+    if (e.key === 'Escape') closeModal();
+  }
+
+  document.getElementById('add-blog-btn').addEventListener('click', function(){ openModal('blog'); });
+  document.getElementById('add-whitepaper-btn').addEventListener('click', function(){ openModal('whitepaper'); });
+  document.getElementById('pc-modal-cancel').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', function(e){ if (e.target === backdrop) closeModal(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = {
+      title: document.getElementById('pc-f-title').value.trim(),
+      tag1: document.getElementById('pc-f-tag1').value.trim(),
+      tag2: document.getElementById('pc-f-tag2').value.trim(),
+      excerpt: document.getElementById('pc-f-excerpt').value.trim(),
+      date: document.getElementById('pc-f-date').value.trim(),
+      image: document.getElementById('pc-f-image').value.trim(),
+      link: document.getElementById('pc-f-link').value.trim()
+    };
+    if (!data.title || !data.excerpt) return;
+
+    var grid = document.getElementById(currentKind === 'whitepaper' ? 'whitepapers-grid' : 'blogs-grid');
+    var addTile = document.getElementById(currentKind === 'whitepaper' ? 'add-whitepaper-btn' : 'add-blog-btn');
+    grid.insertBefore(buildCard(currentKind, data), addTile);
+
+    var items = readStore(currentKind);
+    items.unshift(data);
+    writeStore(currentKind, items);
+    updateCount(currentKind);
+
+    closeModal();
+  });
+
+  updateCount('blog');
+  updateCount('whitepaper');
+})();
+</script>
 </body>
 </html>

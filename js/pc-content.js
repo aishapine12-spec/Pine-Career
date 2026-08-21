@@ -1,4 +1,4 @@
-/* Pine Careers — shared Insights content
+/* Pine Careers shared Insights content
    Seed data mirrors the live posts at pinecareers.com/blog/.
    Anything added through the "Add a blog" / "Add a white paper"
    forms on insights.html is merged in from localStorage at runtime. */

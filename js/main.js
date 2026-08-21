@@ -1667,10 +1667,42 @@ function createGlobe(canvas, opts){
     });
   }
 
+  /* ---------------- Disable Insights Tab ---------------- */
+  function disableInsightsTab(){
+    var insightsLink = document.querySelector(
+      '.nav-links a[href="insights.html"]'
+    );
+
+    if (!insightsLink) return;
+
+    // Disable mouse/touch click
+    insightsLink.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    // Disable keyboard activation
+    insightsLink.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    // Make it behave like a disabled tab
+    insightsLink.setAttribute("aria-disabled", "true");
+    insightsLink.setAttribute("tabindex", "-1");
+
+    // Optional class for styling
+    insightsLink.classList.add("nav-disabled");
+  }
+
   /* ---------------- Init ---------------- */
   document.addEventListener("DOMContentLoaded", function(){
     buildHeader();
     buildFooter();
+        disableInsightsTab();
+
     initReveals();
     initCounters();
     initTestimonials();

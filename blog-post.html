@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="pc-page-title">Blog | Pine Careers</title>
+  <meta name="description" id="pc-page-desc" content="Perspectives from Pine Careers on international education and careers.">
+  <link rel="icon" href="https://staging.pinecareers.com/images/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .article-wrap{ --pc-pine:#173A2E; --pc-pine-deep:#0F2A20; --pc-gold:#B4863A; --pc-moss:#6E7F63; --pc-line:#E4DFCF; --pc-ink:#20241F; }
+
+    .article-hero{ padding:0 0 8px; }
+    .article-hero .breadcrumb{ margin-bottom:16px; }
+    .article-tags{ display:flex; gap:8px; margin-bottom:14px; }
+    .article-tags .tag{ display:inline-block; }
+    .article-title{ font-family:'Fraunces',serif; font-weight:600; font-size:clamp(28px,4vw,46px); line-height:1.12; color:var(--pc-pine-deep); max-width:820px; margin:0 0 16px; }
+    .article-meta{ font-family:'Inter',sans-serif; font-size:13px; color:#8A8474; display:flex; gap:16px; align-items:center; margin-bottom:28px; }
+
+    .article-cover{ width:100%; max-height:460px; object-fit:cover; border-radius:16px; margin-bottom:8px; background:#EFEAE0; }
+
+    .article-body{ max-width:760px; margin:0 auto; padding-top:36px; }
+    .article-body h2{ font-family:'Fraunces',serif; font-weight:600; font-size:26px; color:var(--pc-pine-deep); margin:40px 0 14px; }
+    .article-body h3{ font-family:'Fraunces',serif; font-weight:500; font-size:20px; color:var(--pc-pine); margin:28px 0 10px; }
+    .article-body p{ font-family:'Inter',sans-serif; font-size:16px; line-height:1.75; color:var(--pc-ink); margin:0 0 18px; }
+    .article-body ul{ margin:0 0 20px; padding-left:22px; }
+    .article-body li{ font-family:'Inter',sans-serif; font-size:16px; line-height:1.7; color:var(--pc-ink); margin-bottom:8px; }
+    .article-note{ font-family:'Inter',sans-serif; font-size:13.5px; line-height:1.6; color:#8A8474; border-top:1px solid var(--pc-line); margin-top:36px; padding-top:18px; font-style:italic; }
+
+    .article-empty{ max-width:520px; margin:60px auto; text-align:center; }
+    .article-empty h2{ font-family:'Fraunces',serif; font-size:28px; color:var(--pc-pine-deep); margin-bottom:10px; }
+    .article-empty p{ font-family:'Inter',sans-serif; color:#8A8474; margin-bottom:22px; }
+
+    .back-row{ max-width:760px; margin:48px auto 0; padding-top:24px; border-top:1px solid var(--pc-line); }
+    .back-row a{ font-family:'Inter',sans-serif; font-weight:600; font-size:14px; color:var(--pc-pine-deep); text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+    .back-row a:hover{ color:var(--pc-gold); }
+  </style>
+</head>
+<body data-page="blog-post">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero compact article-hero">
+  <div class="hero-inner article-wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><a href="insights.html">Insights</a><span>/</span><span id="pc-crumb-title">Article</span></nav>
+    <div id="pc-article-head"></div>
+  </div>
+</section>
+
+<section class="section article-wrap">
+  <div class="container">
+    <div id="pc-article-cover"></div>
+    <div id="pc-article-content"></div>
+
+    <div class="back-row">
+      <a href="insights.html">&larr; Back to Insights</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<script src="js/main.js"></script>
+<script src="js/pc-content.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  function escapeHtml(str){
+    return String(str || '').replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  function getParam(name){
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  function renderBody(blocks){
+    if (!blocks || !blocks.length) return '';
+    var html = '';
+    blocks.forEach(function(b){
+      if (b.type === 'h2') html += '<h2>' + escapeHtml(b.text) + '</h2>';
+      else if (b.type === 'h3') html += '<h3>' + escapeHtml(b.text) + '</h3>';
+      else if (b.type === 'ul') html += '<ul>' + b.items.map(function(i){ return '<li>' + escapeHtml(i) + '</li>'; }).join('') + '</ul>';
+      else if (b.type === 'note') html += '<p class="article-note">' + escapeHtml(b.text) + '</p>';
+      else html += '<p>' + escapeHtml(b.text) + '</p>';
+    });
+    return html;
+  }
+
+  var slug = getParam('slug');
+  var all = window.pcAllBlogs ? window.pcAllBlogs() : [];
+  var post = all.find(function(p){ return p.slug === slug; });
+
+  var headEl = document.getElementById('pc-article-head');
+  var coverEl = document.getElementById('pc-article-cover');
+  var contentEl = document.getElementById('pc-article-content');
+  var crumbEl = document.getElementById('pc-crumb-title');
+
+  if (post){
+    document.title = post.title + ' | Pine Careers';
+    var descMeta = document.getElementById('pc-page-desc');
+    if (descMeta) descMeta.setAttribute('content', post.excerpt || '');
+    crumbEl.textContent = post.title;
+
+    var tagsHtml = '';
+    if (post.tag1) tagsHtml += '<span class="tag">' + escapeHtml(post.tag1) + '</span>';
+    if (post.tag2) tagsHtml += '<span class="tag">' + escapeHtml(post.tag2) + '</span>';
+
+    headEl.innerHTML =
+      '<div class="article-tags">' + tagsHtml + '</div>' +
+      '<h1 class="article-title">' + escapeHtml(post.title) + '</h1>' +
+      '<div class="article-meta"><span>' + escapeHtml(post.date || '') + '</span></div>';
+
+    if (post.image){
+      coverEl.innerHTML = '<img class="article-cover" src="' + escapeHtml(post.image) + '" alt="' + escapeHtml(post.title) + '" onerror="this.style.display=\'none\'">';
+    }
+
+    var bodyHtml = renderBody(post.body);
+    contentEl.innerHTML = '<div class="article-body">' +
+      (bodyHtml || '<p>' + escapeHtml(post.excerpt || '') + '</p>') +
+      '</div>';
+  } else {
+    document.title = 'Article not found | Pine Careers';
+    crumbEl.textContent = 'Article not found';
+    headEl.innerHTML = '<h1 class="article-title">Article not found</h1>';
+    contentEl.innerHTML =
+      '<div class="article-empty">' +
+        '<h2>We couldn\u2019t find that article</h2>' +
+        '<p>It may have been removed, or the link is out of date.</p>' +
+        '<a class="btn btn-gold" href="insights.html">Back to Insights</a>' +
+      '</div>';
+  }
+})();
+</script>
+</body>
+</html>

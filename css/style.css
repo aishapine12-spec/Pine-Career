@@ -733,8 +733,8 @@ body.menu-open .nav-toggle span:nth-child(3) {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;
-  max-width: 1200px;
+  gap: 40px;
+  max-width: 1320px;
   margin: 0 auto;
   width: 100%;
 }
@@ -742,36 +742,42 @@ body.menu-open .nav-toggle span:nth-child(3) {
 .hero-inner {
   position: relative;
   z-index: 5;
-  flex: 0 1 760px;
-  padding-right: 30px;
+  flex: 1 1 620px;
+  min-width: 0;
+  padding-right: 20px;
 }
 
 .hero-map {
-  flex: 0 1 420px;
+  flex: 1.25 1 560px;
+  min-width: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   pointer-events: auto;
   position: relative;
   z-index: 4;
-  transform: translateX(100px);
-  margin-left: 10px;
 }
 
 .hero-map svg {
-  width: 100%;
-  height: auto;
-  max-height: 460px;
+  display: block;
 }
 
 
 /* ==========================================================================
    WORLD MAP WRAPPER
+   The aspect-ratio box keeps width and height locked together, so the
+   map always scales down (or up) as a single unit and never grows
+   wider/taller than its box. Since it can never exceed its own
+   container, it can never be clipped by .hero's overflow:hidden either
+   — at any screen size, including in-between "laptop" widths and the
+   narrower viewport DevTools leaves when docked.
    ========================================================================== */
 
 .world-map-wrapper {
   width: 100%;
-  height: 420px;
+  max-width: 640px;
+  aspect-ratio: 850 / 400;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -784,12 +790,13 @@ body.menu-open .nav-toggle span:nth-child(3) {
    WORLD MAP
    ========================================================================== */
 
-.world-map {
-  width: 220% !important;
-  height: 420px !important;
+.world-map,
+#worldMap {
+  width: 100% !important;
+  height: 100% !important;
   max-width: none !important;
+  max-height: none !important;
   display: block;
-  overflow: visible;
   flex-shrink: 0;
   pointer-events: auto;
 }
@@ -897,41 +904,47 @@ body.menu-open .nav-toggle span:nth-child(3) {
 
 
 /* ==========================================================================
-   TABLET MAP
+   TABLET MAP (text and map share the row, narrower columns)
    ========================================================================== */
 
 @media (max-width: 1100px) {
 
   .hero-inner {
-    flex: 0 0 50%;
-    max-width: 50%;
+    flex: 1 1 46%;
+    max-width: 46%;
     padding-right: 20px;
   }
 
   .hero-map {
-    flex: 0 0 50%;
-    max-width: 50%;
-    transform: translateX(20px);
-    margin-left: 0;
+    flex: 1 1 54%;
+    max-width: 54%;
   }
-}
-
-
-/* ==========================================================================
-   DESKTOP MAP
-   ========================================================================== */
-
-@media (min-width: 1200px) {
 
   .world-map-wrapper {
-    height: 300px;
-    max-width: 700px;
+    max-width: 480px;
   }
 }
 
 
 /* ==========================================================================
-   TABLET
+   LARGE DESKTOP MAP (extra room once the row has space to spare)
+   ========================================================================== */
+
+@media (min-width: 1440px) {
+
+  .hero-flex {
+    max-width: 1440px;
+    gap: 56px;
+  }
+
+  .world-map-wrapper {
+    max-width: 760px;
+  }
+}
+
+
+/* ==========================================================================
+   TABLET (map stacks under text, full row width)
    ========================================================================== */
 
 @media (max-width: 991px) {
@@ -944,18 +957,18 @@ body.menu-open .nav-toggle span:nth-child(3) {
   .hero-inner {
     flex: none;
     width: 100%;
+    max-width: 100%;
+    padding-right: 0;
   }
 
   .hero-map {
     width: 100%;
+    max-width: 100%;
     flex: none;
-    transform: none;
-    margin-left: 0;
   }
 
   .world-map-wrapper {
-    height: 270px;
-    max-width: 760px;
+    max-width: 480px;
   }
 }
 
@@ -977,7 +990,7 @@ body.menu-open .nav-toggle span:nth-child(3) {
     margin: 0 auto;
     padding: 0;
 
-    gap: 0 !important;
+    gap: 32px;
   }
 
 
@@ -1014,71 +1027,15 @@ body.menu-open .nav-toggle span:nth-child(3) {
     width: 100%;
     max-width: 100%;
 
-    margin: 0 !important;
-    padding: 0 !important;
-
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    transform: none !important;
-
-    overflow: visible !important;
+    margin: 0;
+    padding: 0 20px;
 
     box-sizing: border-box;
   }
 
   .world-map-wrapper {
     width: 100%;
-
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    overflow: visible !important;
-
-    box-sizing: border-box;
-  }
-
-  #worldMap {
-    width: 100%;
-
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    overflow: visible !important;
-
-    box-sizing: border-box;
-  }
-
-  #worldMap svg {
-    width: 100%;
-    height: auto;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    transform: none !important;
-
-    display: block;
-  }
-
-  .world-map {
-    margin: 0 !important;
-    padding: 0 !important;
-
-    height: auto !important;
-
-    max-width: none !important;
-
-    display: block;
+    max-width: 480px;
   }
 }
 
@@ -1095,13 +1052,11 @@ body.menu-open .nav-toggle span:nth-child(3) {
 
     margin: 0 auto;
     padding: 0;
-
-    gap: 0 !important;
   }
 
 
   /* ------------------------------------------------------------------------
-     MOBILE TEXT — EQUAL LEFT / RIGHT SPACE
+     MOBILE TEXT   EQUAL LEFT / RIGHT SPACE
      ------------------------------------------------------------------------ */
 
   .hero-inner {
@@ -1126,96 +1081,14 @@ body.menu-open .nav-toggle span:nth-child(3) {
     width: 100%;
     max-width: 100%;
 
-    margin-top: 0 !important;
-    margin-right: 0 !important;
-    margin-bottom: 0 !important;
-    margin-left: 0 !important;
-
-    padding: 0 !important;
-
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    transform: none !important;
-
-    overflow: visible !important;
+    margin: 0;
+    padding: 0 16px;
 
     box-sizing: border-box;
   }
 
   .world-map-wrapper {
-    width: 100%;
-
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    overflow: visible !important;
-
-    display: block;
-
-    box-sizing: border-box;
-  }
-
-  #worldMap {
-    width: 100%;
-
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    overflow: visible !important;
-
-    box-sizing: border-box;
-  }
-
-  #worldMap svg {
-    width: 100%;
-    height: auto;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    transform: none !important;
-
-    display: block;
-  }
-
-  .world-map {
-    width: 100% !important;
-    height: auto !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    max-width: none !important;
-
-    object-fit: contain;
-    object-position: top center;
-
-    display: block;
-  }
-
-  .map-dots circle {
-    transition: opacity 0.2s ease;
-  }
-
-  .map-routes path {
-    transition:
-      stroke 0.2s ease,
-      stroke-width 0.2s ease,
-      stroke-opacity 0.2s ease;
-  }
-
-  .india-beacon {
-    pointer-events: none;
+    max-width: 100%;
   }
 }
 
@@ -2775,6 +2648,8 @@ a.card .text-link {
   width: 100%;
   height: 100%;
 }
+
+
 
 
 /* ==========================================================================

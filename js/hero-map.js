@@ -2,7 +2,7 @@
   "use strict";
 
   /* ============================================================
-     PINE CAREERS — INTERACTIVE WORLD DOT MAP
+     PINE CAREERS INTERACTIVE WORLD DOT MAP
      ============================================================ */
 
   const MAP_WIDTH = 1000;
@@ -1480,48 +1480,78 @@
            MOBILE
            ====================================================== */
 
-        @media (max-width: 900px) {
-          #worldMap {
-            min-height: 330px;
-          }
+        /* ======================================================
+   MOBILE MAP COMPACT HEIGHT
+   ====================================================== */
 
-          .wm-city-label-name {
-            font-size: 11px;
-          }
+@media (max-width: 900px) {
 
-          .wm-city-label-tag {
-            font-size: 7px;
-          }
+  #worldMap {
+    width: 100%;
+    height: 210px;
+    min-height: 210px;
+    max-height: 210px;
+    overflow: hidden;
+  }
 
-          .wm-india-label {
-            font-size: 11px;
-            letter-spacing: 3px;
-          }
-        }
+  #worldMap svg {
+    width: 100%;
+    height: 210px;
+    transform: translateY(-12px);
+  }
 
-        @media (max-width: 700px) {
-          #worldMap {
-            min-height: 280px;
-          }
+  .wm-city-label-name {
+    font-size: 11px;
+  }
 
-          .wm-country-tooltip {
-            font-size: 10px;
-            padding: 7px 10px;
-          }
+  .wm-city-label-tag {
+    font-size: 7px;
+  }
 
-          .wm-tooltip-sub {
-            font-size: 7px;
-          }
+  .wm-india-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+}
 
-          .wm-comet-glow {
-            opacity: .22;
-          }
 
-          .wm-city-label {
-            display: none;
-          }
-        }
+/* ======================================================
+   SMALL MOBILE
+   ====================================================== */
 
+@media (max-width: 700px) {
+
+  #worldMap {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    overflow: hidden;
+  }
+
+  #worldMap svg {
+    width: 100%;
+    height: 200px;
+    transform: translateY(-8px);
+  }
+
+  .wm-country-tooltip {
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+
+  .wm-tooltip-sub {
+    font-size: 7px;
+  }
+
+  .wm-comet-glow {
+    opacity: .22;
+  }
+
+  .wm-city-label {
+    display: none;
+  }
+}
       </style>
 
       <!-- =====================================================

@@ -366,7 +366,6 @@ html.reveal-active .reveal-d3.visible {
   top: 0;
   z-index: 200;
   background: #2870B4;
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   transition:
     background 0.3s var(--ease),
@@ -2849,6 +2848,10 @@ a.card .text-link {
   .nav-bar {
     padding: 0 20px;
     height: 70px;
+  }
+
+  .nav-links {
+    inset: 70px 0 0 0;
   }
 
   .section {

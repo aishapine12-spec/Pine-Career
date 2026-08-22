@@ -2799,6 +2799,8 @@ a.card .text-link {
 
   .nav-dropdown a {
     color: #fff;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .nav-dropdown a:hover {
@@ -2807,6 +2809,7 @@ a.card .text-link {
   }
 
   .nav-dropdown a span {
+    text-align: left;
     color: rgba(255, 255, 255, 0.55);
   }
 

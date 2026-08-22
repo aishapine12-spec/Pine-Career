@@ -53,7 +53,7 @@ window.PC_SEED_BLOGS = [
 
       { type: "h2", text: "Flexibility Can Create New Opportunities" },
       { type: "p", text: "The changing international education landscape also encourages students to think more broadly. Rather than limiting themselves to a single university or city, students can compare multiple options and identify programmes that offer the best combination of affordability, academic quality, and career potential." },
-      { type: "p", text: "Students can also explore different learning structures and pathways where appropriate, including foundation programmes, postgraduate options, industry-focused courses, and other academic routes. The goal should not simply be to get into the UK \u2014 it should be to choose a study pathway that supports your long-term success." },
+      { type: "p", text: "Students can also explore different learning structures and pathways where appropriate, including foundation programmes, postgraduate options, industry-focused courses, and other academic routes. The goal should not simply be to get into the UK it should be to choose a study pathway that supports your long-term success." },
 
       { type: "h2", text: "How Pine Careers Can Help" },
       { type: "p", text: "Navigating changing visa requirements can be complicated, particularly when students are simultaneously managing university applications, finances, accommodation, and career planning. At Pine Careers, we support students through different stages of their international education journey." },
@@ -69,7 +69,7 @@ window.PC_SEED_BLOGS = [
       { type: "h2", text: "The UK Dream Is Still Within Reach" },
       { type: "p", text: "Changes to student visa requirements may create additional challenges for Indian students, but they do not eliminate the opportunities available through a UK education. The key is preparation." },
       { type: "p", text: "Research your options. Plan your finances. Understand the visa requirements. Choose your course carefully. And build a strategy around your long-term goals." },
-      { type: "p", text: "The international education landscape will continue to evolve. Students who remain informed, flexible, and proactive will be better positioned to navigate those changes. Your UK study journey doesn't have to stop because the rules have changed \u2014 it simply needs a better plan." },
+      { type: "p", text: "The international education landscape will continue to evolve. Students who remain informed, flexible, and proactive will be better positioned to navigate those changes. Your UK study journey doesn't have to stop because the rules have changed it simply needs a better plan." },
       { type: "note", text: "UK immigration and financial requirements are subject to change. Students should always verify the latest requirements through official UK government and university sources before applying." }
     ]
   },
@@ -90,23 +90,23 @@ window.PC_SEED_BLOGS = [
       { type: "h2", text: "What Is a Pre-CAS Interview?" },
       { type: "p", text: "A Pre-CAS interview is an interview conducted by some UK universities as part of their process before issuing a CAS to an international student. The university may use the interview to assess factors such as:" },
       { type: "ul", items: ["Why you selected the course", "Why you chose the university", "Why you want to study in the UK", "Your understanding of the course and its modules", "Your career plans", "Your financial preparedness", "Your understanding of your study destination"] },
-      { type: "p", text: "The exact format and questions can vary between universities. The most important thing to remember is that there is no single \u201Cperfect\u201D answer \u2014 your answers should be genuine, consistent with your application, and based on your own research." },
+      { type: "p", text: "The exact format and questions can vary between universities. The most important thing to remember is that there is no single \u201Cperfect\u201D answer your answers should be genuine, consistent with your application, and based on your own research." },
 
       { type: "h2", text: "Common Pre-CAS Interview Questions" },
       { type: "h3", text: "1. Why Did You Choose This Specific Course?" },
-      { type: "p", text: "The interviewer wants to understand whether you have genuinely researched your course and whether it connects with your previous education and future career plans. Avoid a generic response such as \u201CI chose this course because it has good career opportunities.\u201D Instead, explain the specific aspects of the programme that attracted you \u2014 your academic background, your interests, relevant course modules, skills you want to develop, and how the course connects to your career goals." },
+      { type: "p", text: "The interviewer wants to understand whether you have genuinely researched your course and whether it connects with your previous education and future career plans. Avoid a generic response such as \u201CI chose this course because it has good career opportunities.\u201D Instead, explain the specific aspects of the programme that attracted you your academic background, your interests, relevant course modules, skills you want to develop, and how the course connects to your career goals." },
 
       { type: "h3", text: "2. Why Did You Choose This Particular University?" },
       { type: "p", text: "Universities want to know whether you have researched your institution before applying. Simply saying the university has a good ranking may not be enough. Research the university's course structure, modules, teaching approach, facilities, faculty, industry connections, research strengths, location, and student support services, then identify the factors that genuinely matter to you. Be specific." },
 
       { type: "h3", text: "3. Why Do You Want to Study in the UK?" },
-      { type: "p", text: "This question evaluates your motivation for choosing the UK as your study destination. Avoid relying entirely on statements such as \u201Cthe UK has excellent universities.\u201D Instead, explain what specifically attracts you \u2014 the academic structure, teaching methodology, research opportunities, industry exposure, international learning environment, course duration, or opportunities to gain practical knowledge." },
+      { type: "p", text: "This question evaluates your motivation for choosing the UK as your study destination. Avoid relying entirely on statements such as \u201Cthe UK has excellent universities.\u201D Instead, explain what specifically attracts you the academic structure, teaching methodology, research opportunities, industry exposure, international learning environment, course duration, or opportunities to gain practical knowledge." },
 
       { type: "h3", text: "4. How Will Studying in the UK Help You Achieve Your Career Goals?" },
       { type: "p", text: "Connect the dots between your past, your chosen course, your UK education, and your future career. Explain what skills you expect to gain and how those skills will contribute to your career plans, without making unrealistic claims." },
 
       { type: "h3", text: "5. What Do You Know About the University and Why Is It a Good Fit for You?" },
-      { type: "p", text: "Before the interview, make sure you know basic information about your institution \u2014 location, course duration, major modules, assessment methods, facilities, academic strengths, student support, career services, and accommodation options where relevant. But don't simply list facts: explain why those facts matter to you." },
+      { type: "p", text: "Before the interview, make sure you know basic information about your institution location, course duration, major modules, assessment methods, facilities, academic strengths, student support, career services, and accommodation options where relevant. But don't simply list facts: explain why those facts matter to you." },
 
       { type: "h2", text: "Other Questions You Should Prepare For" },
       { type: "h3", text: "About Your Course" },
@@ -137,10 +137,10 @@ window.PC_SEED_BLOGS = [
       { type: "p", text: "It is normal to feel nervous. Take a moment to understand each question before answering. If you don't understand something, politely ask the interviewer to repeat or clarify it." },
 
       { type: "h2", text: "The Biggest Mistake: Giving Generic Answers" },
-      { type: "p", text: "One of the biggest challenges students face is providing answers that could apply to almost anyone \u2014 for example, \u201CI chose this university because it has a good reputation.\u201D A stronger response explains which aspect of the university attracted you and how it connects to your academic or career objectives. The same principle applies to every question: why this course, why this university, why the UK, why now, and how does it fit into your future?" },
+      { type: "p", text: "One of the biggest challenges students face is providing answers that could apply to almost anyone for example, \u201CI chose this university because it has a good reputation.\u201D A stronger response explains which aspect of the university attracted you and how it connects to your academic or career objectives. The same principle applies to every question: why this course, why this university, why the UK, why now, and how does it fit into your future?" },
 
       { type: "h2", text: "Pre-CAS Interview Preparation Is About Your Story" },
-      { type: "p", text: "A successful interview isn't about producing the most complicated answer \u2014 it is about presenting a clear, consistent story that connects your academic background, motivation, course choice, university choice, UK study plans, and career goals." },
+      { type: "p", text: "A successful interview isn't about producing the most complicated answer it is about presenting a clear, consistent story that connects your academic background, motivation, course choice, university choice, UK study plans, and career goals." },
       { type: "h3", text: "Prepare, Don't Memorise" },
       { type: "p", text: "Use sample questions to understand the areas you need to prepare for, but make your final responses your own. Research your university, understand your course, know your career goals, and be familiar with your finances and study plans. Most importantly, be honest and confident about the choices you have made." },
       { type: "p", text: "At Pine Careers, we help students prepare for their international education journey with the right information, guidance, and interview preparation. If you are preparing for a UK university Pre-CAS interview and need guidance, connect with Pine Careers to understand how you can prepare with greater confidence." }
@@ -171,7 +171,7 @@ window.PC_SEED_BLOGS = [
 
       { type: "h2", text: "Healthcare: A Particularly Important Area" },
       { type: "p", text: "The UK healthcare sector has historically depended heavily on international professionals, including significant numbers of Indian doctors, nurses, and other healthcare workers. At the same time, the government has introduced tighter immigration measures affecting health and care workers, including restrictions on bringing dependants under certain routes." },
-      { type: "p", text: "This creates a complex situation: the UK continues to experience workforce shortages in parts of healthcare, while immigration policy is simultaneously becoming more restrictive. For Indian healthcare professionals, the decision to move to the UK should involve more than simply assessing job availability \u2014 candidates should carefully understand the applicable visa route, salary requirements, sponsorship conditions, and family-related rules before making a decision." },
+      { type: "p", text: "This creates a complex situation: the UK continues to experience workforce shortages in parts of healthcare, while immigration policy is simultaneously becoming more restrictive. For Indian healthcare professionals, the decision to move to the UK should involve more than simply assessing job availability candidates should carefully understand the applicable visa route, salary requirements, sponsorship conditions, and family-related rules before making a decision." },
 
       { type: "h2", text: "Which Professionals May Face Greater Pressure?" },
       { type: "p", text: "The impact of the policy changes is not uniform. Professionals in highly skilled and higher-paying sectors such as technology, engineering, finance, data, and specialised professional services may have more opportunities to meet salary requirements. Candidates targeting roles traditionally positioned in the middle-income range may face greater challenges if their proposed salaries fall below the applicable threshold." },
@@ -200,7 +200,7 @@ window.PC_SEED_BLOGS = [
       { type: "p", text: "Immigration rules can change quickly. Candidates should avoid making major decisions based solely on outdated information and should verify the current requirements before applying." },
 
       { type: "h2", text: "The Bigger Picture: Global Talent Mobility Is Changing" },
-      { type: "p", text: "The UK's immigration changes reflect a broader global trend: countries are increasingly trying to balance attracting skilled international talent while managing migration levels. For Indian professionals, global career opportunities will continue to exist \u2014 but access to them may become more selective." },
+      { type: "p", text: "The UK's immigration changes reflect a broader global trend: countries are increasingly trying to balance attracting skilled international talent while managing migration levels. For Indian professionals, global career opportunities will continue to exist but access to them may become more selective." },
       { type: "p", text: "The future of international mobility is likely to favour professionals who combine strong qualifications with skills that are in genuine demand and a clear understanding of immigration requirements." },
 
       { type: "h2", text: "The Pine Careers Perspective" },

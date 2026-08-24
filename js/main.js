@@ -1701,7 +1701,7 @@ function createGlobe(canvas, opts){
   document.addEventListener("DOMContentLoaded", function(){
     buildHeader();
     buildFooter();
-        disableInsightsTab();
+    //disableInsightsTab();
 
     initReveals();
     initCounters();

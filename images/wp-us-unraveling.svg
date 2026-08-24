@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 896 600" width="896" height="600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#174A78"/>
+      <stop offset="100%" stop-color="#2870B4"/>
+    </linearGradient>
+  </defs>
+  <rect width="896" height="600" fill="url(#bg)"/>
+
+  <!-- brand logo mark -->
+  <image x="64" y="52" width="36" height="35.5" href="data:image/png;base64,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"/>
+  <text x="112" y="80" font-family="Arial, sans-serif" font-size="14" letter-spacing="2" fill="#3F82BE" font-weight="700">PINE CAREERS</text>
+
+  <!-- kicker -->
+  <text x="64" y="150" font-family="Arial, sans-serif" font-size="12" letter-spacing="3" fill="#8FC0EA" font-weight="700">RESEARCH WHITE PAPER</text>
+  <rect x="64" y="164" width="46" height="3" fill="#3F82BE"/>
+
+  <!-- title -->
+  <text x="64" y="300.0" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="600" fill="#FFFFFF">The Unraveling</text>
+
+
+  <!-- subtitle -->
+  <foreignObject x="64" y="356.0" width="740" height="90">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Arial, sans-serif; font-size:16px; line-height:1.5; color:#AFCBEA;">
+      How America is dismantling its international education advantage &#8212; and what the 2021&#8211;2027 data reveals.
+    </div>
+  </foreignObject>
+
+  <!-- footer -->
+  <rect x="0" y="552" width="896" height="1" fill="#3F82BE" opacity="0.35"/>
+  <text x="64" y="580" font-family="Arial, sans-serif" font-size="12" letter-spacing="1.5" fill="#8FC0EA">MARKET INTELLIGENCE</text>
+  <text x="832" y="580" font-family="Arial, sans-serif" font-size="12" fill="#8FC0EA" text-anchor="end">UNITED STATES</text>
+</svg>

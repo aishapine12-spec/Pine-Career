@@ -1,0 +1,25 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#174A78"/>
+      <stop offset="100%" stop-color="#2870B4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <text x="80" y="90" font-family="'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="3" fill="#3F82BE">PINE CAREERS | RESEARCH &amp; INSIGHTS</text>
+
+  <text font-family="'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="42" fill="#FFFFFF">
+    <tspan x="80" y="168">Global Career Success Isn't</tspan>
+    <tspan x="80" y="222">About Where You Study. It's</tspan>
+    <tspan x="80" y="276">About How You're Prepared.</tspan>
+  </text>
+
+  <text font-family="'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#AFCBEA">
+    <tspan x="80" y="424">Rankings tell you about research output and reputation.</tspan>
+    <tspan x="80" y="454">They don't tell you whether a graduate can actually get</tspan>
+    <tspan x="80" y="484">a job. Here's what the research says does.</tspan>
+  </text>
+
+  <text x="80" y="565" font-family="'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="18" fill="#3F82BE">pinecareers.com/blog</text>
+</svg>

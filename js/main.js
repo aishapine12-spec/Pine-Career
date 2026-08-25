@@ -148,8 +148,54 @@
 
   
 
+/* White bg footer */
+/* var giHTML =
+  '<div class="global-impact" style="background:#fff !important;">' +
+    '<div class="gi-inner" style="background:#fff !important;">' +
 
+      '<div class="gi-text reveal">' +
 
+        '<span class="eyebrow" style="color:#2870B4 !important;">Our Global Footprint</span>' +
+
+        '<h2 style="color:#2870B4 !important;">One connected network, mapped across 28 countries.</h2>' +
+
+        '<p style="color:#2870B4 !important;">From alumni chapters to leadership roundtables, Pine Careers keeps a single, living picture of where your community actually is and keeps it moving.</p>' +
+
+        '<div class="gi-stats">' +
+
+          '<div class="gi-stat">' +
+            '<div class="gi-stat-value" style="color:#2870B4 !important;" data-count="15.4" data-suffix="M">15.4M</div>' +
+            '<div class="gi-stat-label" style="color:#2870B4 !important;">Alumni found &amp; verified</div>' +
+          '</div>' +
+
+          '<div class="gi-stat">' +
+            '<div class="gi-stat-value" style="color:#2870B4 !important;" data-count="28" data-suffix="">28</div>' +
+            '<div class="gi-stat-label" style="color:#2870B4 !important;">Countries in our network</div>' +
+          '</div>' +
+
+          '<div class="gi-stat">' +
+            '<div class="gi-stat-value" style="color:#2870B4 !important;" data-count="385" data-suffix="+">385+</div>' +
+            '<div class="gi-stat-label" style="color:#2870B4 !important;">Universities tracked</div>' +
+          '</div>' +
+
+          '<div class="gi-stat">' +
+            '<div class="gi-stat-value" style="color:#2870B4 !important;" data-count="1.8" data-suffix="M+">1.8M+</div>' +
+            '<div class="gi-stat-label" style="color:#2870B4 !important;">International Alumni</div>' +
+          '</div>' +
+
+        '</div>' +
+
+      '</div>' +
+
+      '<div class="gi-map reveal reveal-d1">' +
+        '<div class="globe-wrap">' +
+          '<canvas class="globe-canvas" data-globe="lg"></canvas>' +
+        '</div>' +
+        '<span class="gi-map-caption"></span>' +
+      '</div>' +
+
+    '</div>' +
+  '</div>'; */
 
 
 
@@ -162,38 +208,38 @@
     var quickHTML = FOOTER_QUICK.map(function(l){ return '<li><a href="' + l.href + '">' + l.label + '</a></li>'; }).join("");
     var servicesHTML = FOOTER_SERVICES.map(function(l){ return '<li><a href="' + l.href + '">' + l.label + '</a></li>'; }).join("");
 
-    var giHTML =
-  '<div class="global-impact">' +
-    '<div class="gi-inner">' +
+   var giHTML =
+  '<div class="global-impact" style="background:linear-gradient(135deg, #174A78 0%, #1F5F96 25%, #2870B4 50%, #3F82BE 75%, #5A9BD0 100%) !important;">' +
+    '<div class="gi-inner" style="background:transparent !important;">' +
 
       '<div class="gi-text reveal">' +
 
-        '<span class="eyebrow">Our Global Footprint</span>' +
+        '<span class="eyebrow" style="color:#fff !important;">Our Global Footprint</span>' +
 
-        '<h2>One connected network, mapped across 28 countries.</h2>' +
+        '<h2 style="color:#fff !important;">One connected network, mapped across 28 countries.</h2>' +
 
-        '<p>From alumni chapters to leadership roundtables, Pine Careers keeps a single, living picture of where your community actually is and keeps it moving.</p>' +
+        '<p style="color:#fff !important;">From alumni chapters to leadership roundtables, Pine Careers keeps a single, living picture of where your community actually is and keeps it moving.</p>' +
 
         '<div class="gi-stats">' +
 
-          '<div class="gi-stat">' +
-            '<div class="gi-stat-value" data-count="15.4" data-suffix="M">15.4M</div>' +
-            '<div class="gi-stat-label">Alumni found &amp; verified</div>' +
+          '<div class="gi-stat" style="background:transparent !important;">' +
+            '<div class="gi-stat-value" style="color:#fff !important;" data-count="15.4" data-suffix="M">15.4M</div>' +
+            '<div class="gi-stat-label" style="color:#fff !important;">Alumni found &amp; verified</div>' +
           '</div>' +
 
-          '<div class="gi-stat">' +
-            '<div class="gi-stat-value" data-count="28" data-suffix="">28</div>' +
-            '<div class="gi-stat-label">Countries in our network</div>' +
+          '<div class="gi-stat" style="background:transparent !important;">' +
+            '<div class="gi-stat-value" style="color:#fff !important;" data-count="28" data-suffix="">28</div>' +
+            '<div class="gi-stat-label" style="color:#fff !important;">Countries in our network</div>' +
           '</div>' +
 
-          '<div class="gi-stat">' +
-            '<div class="gi-stat-value" data-count="385" data-suffix="+">385+</div>' +
-            '<div class="gi-stat-label">Universities tracked</div>' +
+          '<div class="gi-stat" style="background:transparent !important;">' +
+            '<div class="gi-stat-value" style="color:#fff !important;" data-count="385" data-suffix="+">385+</div>' +
+            '<div class="gi-stat-label" style="color:#fff !important;">Universities tracked</div>' +
           '</div>' +
 
-          '<div class="gi-stat">' +
-            '<div class="gi-stat-value" data-count="1.8" data-suffix="M+">1.8M+</div>' +
-            '<div class="gi-stat-label">International Alumni</div>' +
+          '<div class="gi-stat" style="background:transparent !important;">' +
+            '<div class="gi-stat-value" style="color:#fff !important;" data-count="1.8" data-suffix="M+">1.8M+</div>' +
+            '<div class="gi-stat-label" style="color:#fff !important;">International Alumni</div>' +
           '</div>' +
 
         '</div>' +
@@ -205,12 +251,12 @@
           '<canvas class="globe-canvas" data-globe="lg"></canvas>' +
         '</div>' +
         '<span class="gi-map-caption"></span>' +
-      '</div>'
-       +
+      '</div>' +
 
     '</div>' +
   '</div>';
 
+  
     host.innerHTML =
       giHTML +
       '<div class="footer-main">' +

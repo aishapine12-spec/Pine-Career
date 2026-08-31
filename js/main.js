@@ -287,7 +287,8 @@
         '<div class="footer-brand">' +
           '<p>The first integrated recruitment, alumni and industry partner for international higher education in India. A Pine Group higher education business.</p>' +
           '<div class="footer-social">' +
-            '<a href="mailto:info@pinecareers.com" aria-label="Email Pine Careers"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>' +
+          /*            '<a href="mailto:info@pinecareers.com" aria-label="Email Pine Careers"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>' +
+ */
             '<a href="' + SOCIAL_LINKS.linkedin + '" target="_blank" rel="noopener" aria-label="Pine Careers on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4zM13.5 8.48h-3.83V21h3.83v-6.57c0-3.66 4.75-3.96 4.75 0V21H22v-7.93c0-6.17-6.78-5.94-8.5-2.91z"/></svg></a>' +
             '<a href="' + SOCIAL_LINKS.instagram + '" target="_blank" rel="noopener" aria-label="Pine Careers on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><path d="M17.5 6.5h.01"/></svg></a>' +
           '</div>' +

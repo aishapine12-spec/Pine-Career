@@ -1962,3 +1962,25 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
+/* ===== PINE CAREERS - DISABLE COPY ===== */
+(function () {
+  "use strict";
+
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  }, true);
+
+  document.addEventListener("copy", function (e) {
+    e.preventDefault();
+  }, true);
+
+  document.addEventListener("cut", function (e) {
+    e.preventDefault();
+  }, true);
+
+  document.addEventListener("dragstart", function (e) {
+    e.preventDefault();
+  }, true);
+
+})();

@@ -3042,3 +3042,28 @@ a.card .text-link {
     height: 52px;
   }
 }
+
+/* ===== PINE CAREERS - TEXT COPY PROTECTION ===== */
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Keep forms usable */
+input,
+textarea,
+select,
+button,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Prevent image dragging */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}

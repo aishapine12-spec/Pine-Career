@@ -1984,3 +1984,69 @@ document.addEventListener("DOMContentLoaded", function () {
   }, true);
 
 })();
+
+/* ===== PINE CAREERS - CASUAL COPY PROTECTION ===== */
+
+(function () {
+  "use strict";
+
+  // Check whether the user is interacting with a form/editable field
+  function isEditable(target) {
+    if (!target) return false;
+
+    const element = target.closest(
+      "input, textarea, select, button, [contenteditable='true']"
+    );
+
+    return !!element;
+  }
+
+  // Disable right-click on website content
+  // Keep it working inside forms
+  document.addEventListener(
+    "contextmenu",
+    function (e) {
+      if (isEditable(e.target)) return;
+
+      e.preventDefault();
+    },
+    true
+  );
+
+  // Disable copy on website content
+  // Keep copy working inside forms
+  document.addEventListener(
+    "copy",
+    function (e) {
+      if (isEditable(e.target)) return;
+
+      e.preventDefault();
+    },
+    true
+  );
+
+  // Disable cut on website content
+  // Keep cut working inside forms
+  document.addEventListener(
+    "cut",
+    function (e) {
+      if (isEditable(e.target)) return;
+
+      e.preventDefault();
+    },
+    true
+  );
+
+  // Disable dragging of images and other page elements
+  document.addEventListener(
+    "dragstart",
+    function (e) {
+      if (isEditable(e.target)) return;
+
+      e.preventDefault();
+    },
+    true
+  );
+
+})();
+
